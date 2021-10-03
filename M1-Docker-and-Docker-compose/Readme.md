@@ -135,7 +135,7 @@ seq:
     image: datalust/seq:latest
     ports:
         - "8005:80"
-    enviroments:
+    environment:
         - ACCEPT_EULA=Y
 ```
 
@@ -151,11 +151,11 @@ Update docker compose file
 sql_server:
     build:
         context: .
-        dockerFile: Dockerfile
+        dockerfile: sql.dockerfile
     restart: always
     ports:
         - "1433:1433"
-    environments:
+    environment:
         - ACCEPT_EULA=Y
         - SA_PASSWORD=SuperSecretPassword
 ```
