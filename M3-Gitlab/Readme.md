@@ -26,5 +26,3 @@ docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
 * Select Users and create new account
 * Update password (We don't set smtp server yet)
 * Sign out and Sign in again (Default config is force user to reset password at first time)
-
-## Create Group and Project
