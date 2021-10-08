@@ -1,0 +1,29 @@
+version: '3'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins-home-demo:/var/jenkins_home
+    networks:
+      - deployment-network
+    depends_on:
+       - sonarqube
+
+  sonarqube:
+    image: sonarqube
+    platform: linux/amd64
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    networks:
+      - deployment-network
+
+volumes:
+  jenkins-home-demo:
+networks:
+  deployment-network:
