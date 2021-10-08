@@ -1,0 +1,74 @@
+pipeline{
+    agent any
+    
+    stages{
+        stage("Pre-build"){
+            parallel{
+                stage("linux"){
+                    environment{
+                        Version='1.2'
+                    }
+                    
+                    steps{
+                        sh 'echo "This is a demo version ${Version} for linux"'
+                    }
+                }
+                
+                stage("windows"){
+                    environment{
+                        Version='1.2'
+                    }
+                    
+                    steps{
+                        sh 'echo "This is a demo version ${Version} for windows"'
+                    }
+                }
+                
+            }
+        }
+        
+        stage("Build"){
+            input {
+                message 'Do you weant to process this step?'
+                ok 'Yes'
+                parameters {
+                    string(name: 'User', defaultValue: 'Admin', description: 'Username')
+                }
+            }
+            steps{
+                sh 'echo "Hello world on building stage with ${User} (#${BUILD_NUMBER})"'
+            }
+        }
+        stage("Execute Command"){
+            steps{
+                sh '''
+                    echo "${JENKINS_HOME} ${User}"
+                    pwd
+                    ls -al
+                '''
+            }
+        }
+        stage("Delopy"){
+            steps{
+                writeFile file: 'status.txt', text: 'deploy'
+                
+                timeout(time: 10, unit: 'SECONDS'){
+                    sh "${JENKINS_HOME}/scripts/fibonacci.sh 5"
+                }
+                timeout(time: 10, unit: 'SECONDS'){
+                    sh "${JENKINS_HOME}/scripts/fibonacci.sh 32"
+                }
+            }
+        }
+    }
+    
+    post{
+        always{
+            archiveArtifacts 'status.txt'
+            sh 'echo "finish this pipeline"'
+        }
+        success {
+            sh 'echo "this pipeline is done"'
+        }
+    }
+}
