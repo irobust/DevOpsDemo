@@ -1,15 +1,20 @@
 version: '3'
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    # image: jenkins/jenkins:2.315-rhel-ubi8-jdk11
+    build:
+      context: .
     container_name: jenkins
     ports:
       - "8080:8080"
       - "50000:50000"
     volumes:
       - jenkins-home-demo:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - deployment-network
+    environment:
+      - DOCKER_HOST=tcp://host.docker.internal:2376
     depends_on:
        - sonarqube
 
