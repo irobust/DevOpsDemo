@@ -1,0 +1,19 @@
+def image
+pipeline {
+    agent any
+    stages {
+        stage('Verify') {
+            steps {
+                script {
+                    image = docker.build("irobust/weatherapi:jenkins", "M1-Docker-and-Docker-compose/Weather.Api")
+                }
+            }
+        }
+        
+        stage('Smoke Test') {
+            steps {
+              sh 'docker run irobust/weatherapi:jenkins'
+            }
+        }
+    }
+}
