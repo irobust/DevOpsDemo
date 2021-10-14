@@ -6,7 +6,7 @@ pipeline{
             steps{
                 script{
                     // docker build -t irobust/weatherapi:jenkins -f dotnetcore.dockerfile M1-Docker-and-Docker-compose/Weather.Api/.
-                    image = docker.build("irobust/weatherapi:jenkins", "-f dotnetcore.dockerfile M1-Docker-and-Docker-compose/Weather.Api/.")
+                    image = docker.build("irobust/weatherapi:jenkins", "M1-Docker-and-Docker-compose/Weather.Api/.")
                 }
             }
         }
