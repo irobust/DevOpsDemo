@@ -12,9 +12,11 @@ pipeline{
         }
 
         stage('Run'){
-            script{
-                container = image.run()
-                container.stop()
+            steps{
+                script{
+                    container = image.run()
+                    container.stop()
+                }
             }
         }
 
