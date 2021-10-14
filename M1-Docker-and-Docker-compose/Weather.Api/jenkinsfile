@@ -20,7 +20,7 @@ pipeline{
                 DOTNET_CLI_HOME = "/tmp/DOTNET_CLI_HOME"
             }
             steps{
-                sh 'dotnet build ${WORKSPACE}/M1-Docker-and-Docker-compose/Weather.Api/Weather.Api.csproj'
+                sh 'dotnet build "${WORKSPACE}/M1-Docker-and-Docker-compose/Weather.Api/Weather.Api.csproj"'
             }
         }
     }
