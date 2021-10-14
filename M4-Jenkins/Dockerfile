@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:lts
+FROM jenkins/jenkins:2.315-rhel-ubi8-jdk11
 
 USER root
 RUN yum install -y yum-utils && \
